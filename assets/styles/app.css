@@ -1,3 +1,30 @@
-body {
-    background-color: skyblue;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+
+/* // body {
+//     // background-color: $backgroundMainColor;
+
+//     @include media-breakpoint-down(md) {
+//         padding-bottom: 25%;
+//     }
+// } */
+
+.taille-image {
+    height: 12.5rem;
+    overflow: hidden;
+}
+
+.truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Nombre de lignes à afficher */
+    line-clamp: 2; /* Nombre de lignes à afficher */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
+    line-height: 1.5em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
 }
