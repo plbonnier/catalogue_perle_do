@@ -7,11 +7,24 @@
 	<h1>Liste des produits</h1>
 
 	<div class="mb-3">
-        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'ASC' }) }}">Nom (A-Z)</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC' }) }}">Nom (Z-A)</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC' }) }}">Disponible à la location en dernier</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC' }) }}">Disponible à la location en premier</a>
-    </div>
+		<a href="{{ path('app_product_index', { orderBy: 'name', direction: 'ASC' }) }}">Nom (A-Z)</a>
+		|
+		<a href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC' }) }}">Nom (Z-A)</a>
+		<a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC' }) }}">Disponible à la location en dernier</a>
+		<a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC' }) }}">Disponible à la location en premier</a>
+	</div>
+
+	<form method="get" action="{{ path('app_product_index') }}">
+		<div class="form-group">
+			<label for="rent">Disponible à la location</label>
+			<select name="rent" id="rent" class="form-control">
+				<option value="">Tous</option>
+				<option value="1" {% if filters.rent == '1' %} selected {% endif %}>Disponible à la location ou à l'achat</option>
+				<option value="0" {% if filters.rent == '0' %} selected {% endif %}>Disponible à l'achat uniquement</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">Filtrer</button>
+	</form>
 
 	<div class="row">
 		{% for product in products %}

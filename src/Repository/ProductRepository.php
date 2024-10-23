@@ -18,7 +18,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllOrderedBy($orderBy, $direction): array
+    public function findAllFiltered($orderBy, $direction, $filters): array
     {
         $validOrderBy = ['name', 'rent'];
         $validDirection = ['ASC', 'DESC'];
@@ -27,11 +27,15 @@ class ProductRepository extends ServiceEntityRepository
             throw new InvalidArgumentException('Invalid order by or direction parameter');
         }
 
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.' . $orderBy, $direction)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.' . $orderBy, $direction);
+
+        if (isset($filters['rent']) && $filters['rent'] !== '') {
+            $qb->andWhere('p.rent = :rent')
+                ->setParameter('rent', $filters['rent']);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     //    /**
