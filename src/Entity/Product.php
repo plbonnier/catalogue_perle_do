@@ -23,7 +23,7 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -37,7 +37,7 @@ class Product
 
     #[Vich\UploadableField(mapping: 'picture_file', fileNameProperty: 'picture')]
     #[Assert\File(
-        maxSize: '1M',
+        maxSize: '2M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
     )]
     private ?File $pictureFile = null;
@@ -66,7 +66,7 @@ class Product
 
     public function setDescription(?string $description): static
     {
-        $this->description = $description;
+        $this->description = ucfirst($description);
 
         return $this;
     }

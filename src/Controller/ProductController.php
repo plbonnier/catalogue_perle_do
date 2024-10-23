@@ -15,11 +15,15 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ProductController extends AbstractController
 {
     #[Route(name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
-        $products = $productRepository->findAll();
+        $orderBy = $request->query->get('orderBy', 'name');
+        $direction = $request->query->get('direction', 'ASC');
+        $products = $productRepository->findAllOrderedBy($orderBy, $direction);
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'orderBy' => $orderBy,
+            'direction' => $direction,
         ]);
     }
 

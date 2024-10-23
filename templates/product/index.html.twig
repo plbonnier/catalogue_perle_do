@@ -6,11 +6,17 @@
 {% block body %}
 	<h1>Liste des produits</h1>
 
+	<div class="mb-3">
+        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'ASC' }) }}">Nom (A-Z)</a> |
+        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC' }) }}">Nom (Z-A)</a> |
+        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC' }) }}">Disponible à la location en dernier</a> |
+        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC' }) }}">Disponible à la location en premier</a>
+    </div>
+
 	<div class="row">
 		{% for product in products %}
 			<div class="col-12 col-sm-6 col-lg-3 mb-4 d-flex justify-content- around align-items-stretch">
 				<div class="card w-100">
-
 					<div class="card-img-top-wrapper taille-image">
 						<img src="{{ vich_uploader_asset(product) }}" alt="{{ product.name }}" class="card-img-top w-100 h-100 object-fit-cover">
 					</div>
@@ -18,11 +24,15 @@
 						<h5 class="card-title">{{ product.name }}</h5>
 						<p class="card-text truncate">{{ product.description }}</p>
 						{% if product.rent == true %}
-							<p class="card-text">Disponible à la Location ou l'achat</p>
+							<p class="card-text">Disponible à la location ou l'achat</p>
 						{% else %}
 							<p class="card-text">Disponible à l'achat uniquement</p>
 						{% endif %}
-						<a href="{{ path("app_product_show", { id:product.id })}}" class="btn btn-primary">Go somewhere</a>
+						<a href="{{ path("app_product_show", { id:product.id })}}" class="btn btn-primary">Voir le produit en détail</a>
+						<button class="btn btn-secondary">
+							<i class="bi bi-basket">
+								Ajouter à la liste</i>
+						</button>
 					</div>
 				</div>
 			</div>
