@@ -19,11 +19,20 @@ final class ProductController extends AbstractController
     {
         $orderBy = $request->query->get('orderBy', 'name');
         $direction = $request->query->get('direction', 'ASC');
-        $products = $productRepository->findAllOrderedBy($orderBy, $direction);
+        $filters = $request->query->all();
+
+        // Assurez-vous que la clé 'rent' est toujours définie
+        if (!isset($filters['rent'])) {
+            $filters['rent'] = '';
+        }
+
+        $products = $productRepository->findAllFiltered($orderBy, $direction, $filters);
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'orderBy' => $orderBy,
             'direction' => $direction,
+            'filters' => $filters,
         ]);
     }
 
