@@ -1,21 +1,26 @@
+:root {
+    --main-text-color: #c49a6c;
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
     list-style: none;
     scroll-behavior: smooth;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--bs-black);
 }
 
-/* // body {
-//     // background-color: $backgroundMainColor;
 
-//     @include media-breakpoint-down(md) {
-//         padding-bottom: 25%;
-//     }
-// } */
+body {
+    padding: 2rem;
+}
 
 .taille-image {
     height: 12.5rem;
     overflow: hidden;
+    transition: transform 0.3s ease; /* Ajout d'une transition pour l'effet de survol */
+    max-width: 10rem; /* Ajout de la propriété max-width */
 }
 
 .truncate {
@@ -27,4 +32,21 @@
     text-overflow: ellipsis;
     height: 3em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
     line-height: 1.5em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
+}
+
+a, button {
+    /* cursor: pointer; */
+    text-decoration: none;
+    color: var(--bs-black);
+}
+
+.tri {
+    border: solid 1px var(--bs-black);
+    max-width: 10rem;
+    font-size: .75rem;
+}
+
+.tri:hover {
+    background-color: var(--bs-black);
+    color: var(--main-text-color);
 }

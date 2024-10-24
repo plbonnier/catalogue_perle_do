@@ -4,14 +4,37 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Liste des produits</h1>
+	<h1 class="text-center">Liste des produits</h1>
 
-	<div class="mb-3">
-        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'ASC' }) }}">Nom (A-Z)</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC' }) }}">Nom (Z-A)</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC' }) }}">Disponible à la location en dernier</a> |
-        <a href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC' }) }}">Disponible à la location en premier</a>
-    </div>
+	<div class="mb-3 d-flex justify-content-end align-item-center gap-2">
+		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'name', direction: 'ASC', rent: filters.rent }) }}">Nom (A-Z)</a>
+		<span class="align-self-center">|</span>
+		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC', rent: filters.rent }) }}">Nom (Z-A)</a>
+		<span class="align-self-center">|</span>
+		{# <a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'price', direction: 'ASC', rent: filters.rent }) }}">Prix (croissant)</a>
+		<span class="align-self-center">|</span>
+		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'price', direction: 'DESC', rent: filters.rent }) }}">Prix (décroissant)</a>
+		<span class="align-self-center">|</span> #}
+		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC', rent: filters.rent }) }}">Disponible à la location en dernier</a>
+		<span class="align-self-center">|</span>
+		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC', rent: filters.rent }) }}">Disponible à la location en premier</a>
+	</div>
+
+
+	<form method="get" action="{{ path('app_product_index') }}" class="mb-3 d-flex justify-content-end gap-2">
+		<input type="hidden" name="orderBy" value="{{ orderBy }}">
+		<input type="hidden" name="direction" value="{{ direction }}">
+		<div class="d-flex justify-content-end align-items-center gap-1">
+			<label for="rent">Disponible à la location :</label>
+			<select name="rent" id="rent" class="form-control w-auto">
+				<option value="">Tous</option>
+				<option value="1" {% if filters.rent == '1' %} selected {% endif %}>Oui</option>
+				<option value="0" {% if filters.rent == '0' %} selected {% endif %}>Non</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">Filtrer</button>
+	</form>
+
 
 	<div class="row">
 		{% for product in products %}
