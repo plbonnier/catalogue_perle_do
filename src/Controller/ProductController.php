@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,24 +16,32 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ProductController extends AbstractController
 {
     #[Route(name: 'app_product_index', methods: ['GET'])]
-    public function index(Request $request, ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
     {
         $orderBy = $request->query->get('orderBy', 'name');
         $direction = $request->query->get('direction', 'ASC');
         $filters = $request->query->all();
 
+        
         // Assurez-vous que la clé 'rent' est toujours définie
         if (!isset($filters['rent'])) {
             $filters['rent'] = '';
         }
-
+        
         $products = $productRepository->findAllFiltered($orderBy, $direction, $filters);
+        
+        $pagination = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            4
+        );
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'orderBy' => $orderBy,
             'direction' => $direction,
             'filters' => $filters,
+            'pagination' => $pagination,
         ]);
     }
 

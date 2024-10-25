@@ -14,13 +14,16 @@
 
 body {
     padding: 2rem;
+    background-color: #ECECE9;
 }
 
 .taille-image {
     height: 12.5rem;
     overflow: hidden;
-    transition: transform 0.3s ease; /* Ajout d'une transition pour l'effet de survol */
-    max-width: 10rem; /* Ajout de la propriété max-width */
+}
+
+.logo{
+    justify-self: center;
 }
 
 .truncate {
@@ -40,6 +43,11 @@ a, button {
     color: var(--bs-black);
 }
 
+.btn-color{
+    background-color: var(--main-text-color);
+}
+
+/* ------------------------tri------------------------ */
 .tri {
     border: solid 1px var(--bs-black);
     max-width: 10rem;
@@ -49,4 +57,57 @@ a, button {
 .tri:hover {
     background-color: var(--bs-black);
     color: var(--main-text-color);
+}
+
+/* --------------------pagination-------------------- */
+
+.pagina{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 5rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.page,
+.previous,
+.next,
+.last,
+.first {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+}
+
+.page:hover,
+.previous:hover,
+.next:hover,
+.last:hover,
+.first:hover {
+    background-color: var(--bs-black);
+}
+
+.page:hover a,
+.previous:hover a,
+.next:hover a,
+.last:hover a,
+.first:hover a {
+    color: var(--main-text-color);
+}
+
+.current {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: var(--main-text-color);
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
 }
