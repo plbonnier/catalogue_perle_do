@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<img src="{{ asset('/build/images/main.623ca7c1.svg') }}" alt="logo de perle do" class="d-flex w-50 my-2 logo">
+	<img src="{{ asset('/build/images/main.623ca7c1.svg') }}" alt="logo de perle do" class="d-flex w-50 my-2 logo  d-block d-md-none">
 	<h1 class="text-center text-decoration-underline mb-3">Liste des produits</h1>
 
 	<div class="mb-3 d-flex justify-content-end align-item-center gap-2">
@@ -33,7 +33,7 @@
 				<option value="0" {% if filters.rent == '0' %} selected {% endif %}>Non</option>
 			</select>
 		</div>
-		<button type="submit" class="btn btn-primary btn-color">Filtrer</button>
+		<button type="submit" class="btn btn-secondary btn-color">Filtrer</button>
 	</form>
 
 
@@ -52,7 +52,7 @@
 						{% else %}
 							<p class="card-text text-center">Disponible à l'achat uniquement</p>
 						{% endif %}
-						<a href="{{ path("app_product_show", { id:product.id })}}" class="btn btn-primary btn-color">Voir le produit en détail</a>
+						<a href="{{ path("app_product_show", { id:product.id })}}" class="btn btn-secondary btn-color">Voir le produit en détail</a>
 						<button class="btn btn-secondary">
 							<i class="bi bi-basket">
 								Ajouter à la liste</i>

@@ -1,5 +1,6 @@
 :root {
     --main-text-color: #c49a6c;
+    --backgorund-color-primary: #ECECE9;
 }
 
 * {
@@ -14,7 +15,7 @@
 
 body {
     padding: 2rem;
-    background-color: #ECECE9;
+    background-color: var(--backgorund-color-primary);
 }
 
 .taille-image {
@@ -22,28 +23,33 @@ body {
     overflow: hidden;
 }
 
-.logo{
+.logo {
     justify-self: center;
 }
 
 .truncate {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Nombre de lignes à afficher */
-    line-clamp: 2; /* Nombre de lignes à afficher */
+    -webkit-line-clamp: 2;
+    /* Nombre de lignes à afficher */
+    line-clamp: 2;
+    /* Nombre de lignes à afficher */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 3em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
-    line-height: 1.5em; /* Ajustez cette valeur en fonction de la hauteur de ligne */
+    height: 3em;
+    /* Ajustez cette valeur en fonction de la hauteur de ligne */
+    line-height: 1.5em;
+    /* Ajustez cette valeur en fonction de la hauteur de ligne */
 }
 
-a, button {
+a,
+button {
     /* cursor: pointer; */
     text-decoration: none;
     color: var(--bs-black);
 }
 
-.btn-color{
+.btn-color {
     background-color: var(--main-text-color);
 }
 
@@ -61,7 +67,7 @@ a, button {
 
 /* --------------------pagination-------------------- */
 
-.pagina{
+.pagina {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,4 +116,40 @@ a, button {
     border-style: solid;
     border-width: 1px;
     text-align: center;
+}
+
+/* -----------------------navbar----------------------- */
+.burger {
+    font-size: 2rem;
+}
+
+.dropdown-item {
+    font-size: 5rem;
+    border-bottom: solid 1px var(--bs-black);
+}
+
+.no-border {
+    border-bottom: none;
+}
+
+.dropdown-menu {
+    background-color: var(--main-text-color);
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+nav {
+    background-color: var(--backgorund-color-primary);
+    font-size: 1.5rem;
+}
+
+/* -------------------------desktop------------------------- */
+.dropdown-item-desktop {
+    font-size: 1.5rem;
+    background-color: var(--backgorund-color-primary);
+}
+
+.dropdown-desktop{
+    background-color: var(--backgorund-color-primary);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
