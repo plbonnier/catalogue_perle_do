@@ -1,30 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}
+	{{ product.slug }}
+{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+	<h1 class="text-center text-decoration-underline">{{ product.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description|raw }}</td>
-            </tr>
-            <tr>
-                <th>Rent</th>
-                <td>{{ product.rent ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<div class="d-flex justify-content-around mb-2">
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+		<button class="btn btn-secondary">
+			<i class="bi bi-basket">
+				Ajouter à la liste</i>
+		</button>
+
+		<a href="{{ path('app_product_index') }}">back to list</a>
+	</div>
+
+	<div class="d-flex mb-2">
+		<div class="d-flex flex-column justify-content-around">
+			<img src="{{ vich_uploader_asset(product) }}" alt="{{ product.name }}" class="object-fit-cover w-50 images2">
+			<img src="" alt="{{ product.name }}" class="object-fit-cover w-50 images2">
+		</div>
+
+		<img src="{{ vich_uploader_asset(product) }}" alt="{{ product.name }}" class="img-fluid object-fit-cover big-image">
+	</div>
+
+	<div class="text-center mb-2">{{ product.description|raw }}</div>
+	{% if product.rent == true %}
+		<p class="card-text text-center mb-2">Disponible à la location ou l'achat</p>
+	{% else %}
+		<p class="card-text text-center mb-2">Disponible à l'achat uniquement</p>
+	{% endif %}
+
 {% endblock %}
