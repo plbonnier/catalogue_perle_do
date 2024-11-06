@@ -42,6 +42,9 @@ class Product
     )]
     private ?File $pictureFile = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,7 +57,9 @@ class Product
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = ucfirst($name);
+
+        $this->setslug($this->getName());
 
         return $this;
     }
@@ -115,6 +120,19 @@ class Product
         if ($image) {
             $this->updatedAt = new DateTime('now');
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $slug = str_replace(' ', '-', $slug);
+        $this->slug = $slug;
 
         return $this;
     }
