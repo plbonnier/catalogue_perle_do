@@ -52,7 +52,7 @@
 						{% else %}
 							<p class="card-text text-center">Disponible à l'achat uniquement</p>
 						{% endif %}
-						<a href="{{ path("app_product_show", { id:product.id })}}" class="btn btn-secondary btn-color">Voir le produit en détail</a>
+						<a href="{{ path("app_product_show", { slug:product.slug })}}" class="btn btn-secondary btn-color">Voir le produit en détail</a>
 						<button class="btn btn-secondary">
 							<i class="bi bi-basket">
 								Ajouter à la liste</i>
