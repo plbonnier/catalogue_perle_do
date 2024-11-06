@@ -46,7 +46,7 @@
 					</div>
 					<div class="card-body d-flex flex-column flex-grow-1 gap-1">
 						<h5 class="card-title">{{ product.name }}</h5>
-						<p class="card-text truncate">{{ product.description }}</p>
+						<div class="card-text truncate">{{ product.description|raw }}</div>
 						{% if product.rent == true %}
 							<p class="card-text text-center">Disponible à la location ou l'achat</p>
 						{% else %}
