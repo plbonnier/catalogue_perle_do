@@ -4,15 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use DateTimeInterface;
-use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\DBAL\Types\Types;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[Vich\Uploadable]
 class Product
 {
     #[ORM\Id]
@@ -29,21 +26,22 @@ class Product
     #[ORM\Column]
     private ?bool $rent = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
-    #[Vich\UploadableField(mapping: 'picture_file', fileNameProperty: 'picture')]
-    #[Assert\File(
-        maxSize: '2M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-    )]
-    private ?File $pictureFile = null;
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'product', cascade: ['persist', 'remove'])]
+    private Collection $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -88,17 +86,6 @@ class Product
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): static
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
@@ -107,20 +94,6 @@ class Product
     public function setUpdatedAt(DateTimeInterface $updatedAt): Product
     {
         $this->updatedAt = $updatedAt;
-        return $this;
-    }
-    public function getPictureFile(): ?File
-    {
-        return $this->pictureFile;
-    }
-
-    public function setPictureFile(?File $image = null): Product
-    {
-        $this->pictureFile = $image;
-        if ($image) {
-            $this->updatedAt = new DateTime('now');
-        }
-
         return $this;
     }
 
@@ -133,6 +106,35 @@ class Product
     {
         $slug = str_replace(' ', '-', $slug);
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
 
         return $this;
     }
