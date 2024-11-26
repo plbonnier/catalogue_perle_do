@@ -19,12 +19,12 @@
 
 	<div class="d-flex mb-2">
 			{% if product.images|length > 0 %}
-		<div class="d-flex flex-column justify-content-start gap-3">
+		<div class="d-flex flex-column justify-content-start gap-3 all-images">
 				{% for image in product.images %}
 					<img src="{{ vich_uploader_asset(image) }}" alt="{{ product.name }}" class="object-fit-cover w-50 images2">
 				{% endfor %}
 		</div>
-		<img src="{{ vich_uploader_asset(product.images|first) }}" alt="{{ product.name }}" class="img-fluid object-fit-cover big-image">
+		<img src="{{ vich_uploader_asset(product.images|first) }}" alt="{{ product.name }}" class="img-fluid w-75 object-fit-cover big-image d-none d-md-block">
 			{% else %}
 				<p>Aucune image disponible pour ce produit.</p>
 			{% endif %}

@@ -119,9 +119,7 @@ button {
 }
 
 /* -----------------------navbar----------------------- */
-.burger {
-    font-size: 2rem;
-}
+
 
 .dropdown-item {
     font-size: 5rem;
@@ -165,4 +163,14 @@ nav {
 .dropdown-desktop{
     background-color: var(--backgorund-color-primary);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+/* -------------------mobile---------- */
+
+@media screen and (max-width: 768px) {
+    .all-images{
+        justify-content: center;
+        align-items: center;
+    }
+    
 }
