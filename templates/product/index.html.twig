@@ -13,9 +13,9 @@
 		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'name', direction: 'DESC', rent: filters.rent }) }}">Nom (Z-A)</a>
 		<span class="align-self-center">|</span>
 		{# <a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'price', direction: 'ASC', rent: filters.rent }) }}">Prix (croissant)</a>
-				<span class="align-self-center">|</span>
-				<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'price', direction: 'DESC', rent: filters.rent }) }}">Prix (décroissant)</a>
-				<span class="align-self-center">|</span> #}
+						<span class="align-self-center">|</span>
+						<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'price', direction: 'DESC', rent: filters.rent }) }}">Prix (décroissant)</a>
+						<span class="align-self-center">|</span> #}
 		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'rent', direction: 'ASC', rent: filters.rent }) }}">Disponible à la location en dernier</a>
 		<span class="align-self-center">|</span>
 		<a class="tri link-offset-2 link-underline link-underline-opacity-0 text-center d-flex flex-column justify-content-center p-1" href="{{ path('app_product_index', { orderBy: 'rent', direction: 'DESC', rent: filters.rent }) }}">Disponible à la location en premier</a>
@@ -42,7 +42,11 @@
 			<div class="card-product col-12 col-sm-6 col-lg-3 mb-4 d-flex justify-content- around align-items-stretch">
 				<div class="card w-100">
 					<div class="card-img-top-wrapper taille-image">
-						<img src="{{ vich_uploader_asset(product) }}" alt="{{ product.name }}" class="card-img-top w-100 h-100 object-fit-cover">
+						{% if product.images|length > 0 %}
+							<img src="{{ vich_uploader_asset(product.images|first) }}" alt="{{ product.images|first.path }}" class="card-img-top w-100 h-100 object-fit-cover">
+						{% else %}
+							<img src="{{ asset('/build/images/main.623ca7c1.svg') }}" alt="Image par défaut" class="card-img-top w-100 h-100 object-fit-cover">
+						{% endif %}
 					</div>
 					<div class="card-body d-flex flex-column flex-grow-1 gap-1">
 						<h5 class="card-title">{{ product.name }}</h5>

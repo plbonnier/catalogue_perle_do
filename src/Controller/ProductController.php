@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ImageRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -17,20 +18,23 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class ProductController extends AbstractController
 {
     #[Route(name: 'app_product_index', methods: ['GET'])]
-    public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
-    {
+    public function index(
+        Request $request,
+        ProductRepository $productRepository,
+        PaginatorInterface $paginator,
+    ): Response {
         $orderBy = $request->query->get('orderBy', 'name');
         $direction = $request->query->get('direction', 'ASC');
         $filters = $request->query->all();
 
-        
+
         // Assurez-vous que la clé 'rent' est toujours définie
         if (!isset($filters['rent'])) {
             $filters['rent'] = '';
         }
-        
+
         $products = $productRepository->findAllFiltered($orderBy, $direction, $filters);
-        
+
         $pagination = $paginator->paginate(
             $products,
             $request->query->getInt('page', 1),
@@ -98,7 +102,7 @@ final class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($product);
             $entityManager->flush();
         }
